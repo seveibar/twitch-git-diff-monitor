@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "micro-dev -p 3001 app.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "micro": "^9.3.4",
+    "micro-dev": "^3.0.0",
+    "parse-diff": "^0.7.1"
+  }
+}
