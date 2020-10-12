@@ -106,6 +106,10 @@ const App = () => {
         "lastLoadedChunks",
         JSON.stringify(lastLoadedChunks)
       )
+
+      setTimeout(() => {
+        loadDiffs()
+      }, 500)
     }
     loadDiffs()
   }, [])
