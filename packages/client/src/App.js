@@ -16,6 +16,7 @@ const Header = styled("div")({
 const Changes = styled("div")({
   backgroundColor: "#fff",
   whiteSpace: "pre",
+  fontSize: 12,
   "& *": {
     fontFamily: "Monospace",
   },
@@ -36,26 +37,85 @@ const Change = styled("div")(({ op }) => ({
       }),
 }))
 
+const hashChunk = (chunk) => {
+  return `${chunk.filePath},${chunk.lineStart},${chunk.numberLines}`
+}
+
+const findAnyChangedChunks = (lastChunks, newChunks) => {
+  const hashesOfLastChunks = new Set()
+
+  for (const chunk of lastChunks) {
+    hashesOfLastChunks.add(hashChunk(chunk))
+  }
+
+  for (const chunk of newChunks) {
+    if (!hashesOfLastChunks.has(hashChunk(chunk))) {
+      return chunk
+    }
+  }
+
+  return null
+}
+
+const convertToJustChunks = (changedFiles) => {
+  const justChunks = []
+  for (const changedFile of changedFiles) {
+    for (const chunk of changedFile.chunks) {
+      justChunks.push({
+        filePath: "packages/client/src/App.js",
+        lineStart: chunk.newStart,
+        numberLines: chunk.changes.filter((c) => c.type !== "normal").length,
+        lines: chunk.changes.map((c) => ({ op: c.type, content: c.content })),
+      })
+    }
+  }
+  return justChunks
+
+  // return [
+  //   {
+  //     filePath: "path/to/file",
+  //     lineStart: 0,
+  //     lines: [
+  //       { op: "nothing", content: "asd" },
+  //       { op: "add", content: "ssd" },
+  //     ],
+  //   },
+  // ]
+}
+
 const App = () => {
-  const [response, setResponse] = useState()
+  const [latestChunk, setLatestChunk] = useState(null)
   useEffect(() => {
+    let lastLoadedChunks = []
     async function loadDiffs() {
       const res = await fetch("/api").then((r) => r.json())
-      console.log({ res })
-      setResponse(res)
+
+      const newChunks = convertToJustChunks(res)
+
+      const changedChunk = findAnyChangedChunks(lastLoadedChunks, newChunks)
+      if (changedChunk) {
+        setLatestChunk(changedChunk)
+      }
+
+      lastLoadedChunks = newChunks
     }
     loadDiffs()
   }, [])
 
-  if (!response) return "loading"
+  if (!latestChunk)
+    return (
+      <Container>
+        <Header>No Recent Changes</Header>
+      </Container>
+    )
 
   return (
     <Container>
       <Header>Last Change: /packages/client/App.js</Header>
       <Changes>
-        {response[0].chunks[0].changes.map((change, i) => (
-          <Change key={i} op={change.type}>
-            {change.content.slice(1)}
+        {latestChunk.lines.map((line, i) => (
+          <Change key={i} op={line.op}>
+            {line.content.slice(1)}
           </Change>
         ))}
       </Changes>
