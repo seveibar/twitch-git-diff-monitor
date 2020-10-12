@@ -17,6 +17,7 @@ const Changes = styled("div")({
   backgroundColor: "#fff",
   whiteSpace: "pre",
   fontSize: 12,
+  overflow: "hidden",
   "& *": {
     fontFamily: "Monospace",
   },
@@ -62,7 +63,7 @@ const convertToJustChunks = (changedFiles) => {
   for (const changedFile of changedFiles) {
     for (const chunk of changedFile.chunks) {
       justChunks.push({
-        filePath: "packages/client/src/App.js",
+        filePath: changedFile.to,
         lineStart: chunk.newStart,
         numberLines: chunk.changes.filter((c) => c.type !== "normal").length,
         lines: chunk.changes.map((c) => ({ op: c.type, content: c.content })),
@@ -70,23 +71,22 @@ const convertToJustChunks = (changedFiles) => {
     }
   }
   return justChunks
-
-  // return [
-  //   {
-  //     filePath: "path/to/file",
-  //     lineStart: 0,
-  //     lines: [
-  //       { op: "nothing", content: "asd" },
-  //       { op: "add", content: "ssd" },
-  //     ],
-  //   },
-  // ]
 }
 
 const App = () => {
   const [latestChunk, setLatestChunk] = useState(null)
   useEffect(() => {
     let lastLoadedChunks = []
+    try {
+      lastLoadedChunks = JSON.parse(
+        window.localStorage.getItem("lastLoadedChunks")
+      )
+    } catch (e) {}
+
+    if (!lastLoadedChunks || !lastLoadedChunks.length) {
+      lastLoadedChunks = []
+    }
+
     async function loadDiffs() {
       const res = await fetch("/api").then((r) => r.json())
 
@@ -97,7 +97,15 @@ const App = () => {
         setLatestChunk(changedChunk)
       }
 
+      if (newChunks.length === 0) {
+        setLatestChunk(null)
+      }
+
       lastLoadedChunks = newChunks
+      window.localStorage.setItem(
+        "lastLoadedChunks",
+        JSON.stringify(lastLoadedChunks)
+      )
     }
     loadDiffs()
   }, [])
