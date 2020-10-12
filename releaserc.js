@@ -9,9 +9,7 @@ module.exports = {
       "@semantic-release/git",
       {
         assets: ["package.json"],
-        message:
-          "chore(release): ${nextRelease.version} [skip ci]
-
+        message: "chore(release): ${nextRelease.version} [skip ci]
 ${nextRelease.notes}",
       },
     ],
