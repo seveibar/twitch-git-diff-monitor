@@ -1,0 +1,13 @@
+const output = `diff --git a/packages/client/src/App.js b/packages/client/src/App.js
+index 5a4c559..4f7bf06 100644
+--- a/packages/client/src/App.js
++++ b/packages/client/src/App.js
+@@ -10,6 +10,8 @@ const App = () => {
+   loadDiffs()
+ }, [])
+
++  // Hi there!
++
+ return (
+   <div>
+     <pre style={{ color: "red" }}>{JSON.stringify(response, null, "  ")}</pre>`
