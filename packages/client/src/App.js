@@ -123,7 +123,7 @@ const App = () => {
 
   return (
     <Container>
-      <Header>Last Change: /packages/client/App.js</Header>
+      <Header>Last Change: {latestChunk.filePath}</Header>
       <Changes>
         {latestChunk.lines.map((line, i) => (
           <Change key={i} op={line.op}>
