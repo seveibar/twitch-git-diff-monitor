@@ -1,6 +1,6 @@
 # twitch-git-diff-monitor
 
-Let twitch viewers see the last lines of code you changed.
+Let twitch viewers see the last lines of code you changed. Made on [seveibar's twitch stream](https://twitch.tv/seveibar)
 
 ![](https://user-images.githubusercontent.com/1910070/96106915-c1494b00-0ea9-11eb-9313-1503b96dfa65.gif)
 
