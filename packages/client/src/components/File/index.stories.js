@@ -1,6 +1,6 @@
 import React from "react"
 import File from "./"
-import codeExample, { oldCode, newCode } from "./code-example.js"
+import { oldCode, newCode } from "./code-example.js"
 
 export default {
   title: "File",
