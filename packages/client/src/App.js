@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { styled } from "@material-ui/core"
-import * as colors from "@material-ui/core/colors"
 import "./App.css"
 import "highlightjs/dracula.css"
 import "dracula-prism/css/dracula-prism.css"
