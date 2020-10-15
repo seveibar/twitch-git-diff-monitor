@@ -39,7 +39,7 @@ export const FileDeck = ({ files }) => {
   useEffect(() => {
     let interval = setInterval(() => {
       incVisibleFile()
-    }, 2000)
+    }, 25000)
     return () => {
       clearInterval(interval)
     }
@@ -56,7 +56,7 @@ export const FileDeck = ({ files }) => {
             exiting: visibleFileIndex === i - 1,
           })}
         >
-          <File {...file} />
+          <File {...file} animTime={25000} />
         </FileContainer>
       ))}
     </Container>

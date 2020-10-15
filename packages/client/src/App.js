@@ -35,7 +35,7 @@ const App = () => {
 
       setTimeout(() => {
         loadDiffs()
-      }, 2000)
+      }, 10000)
     }
     loadDiffs()
   }, [])

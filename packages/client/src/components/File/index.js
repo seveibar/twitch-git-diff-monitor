@@ -1,7 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useReducer } from "react"
 import { styled } from "@material-ui/core"
 import colors from "../../colors"
-import Highlight from "react-highlight.js"
 import DiffViewer from "react-diff-viewer"
 import Prism from "prismjs"
 import Measure from "react-measure"
@@ -18,6 +17,7 @@ const Container = styled("div")({
   "& .title": {
     fontWeight: 600,
     marginBottom: 16,
+    transition: "opacity 500ms",
   },
   "& .changesText": {
     marginLeft: 8,
@@ -36,19 +36,59 @@ const highlightSyntax = (str) => (
   />
 )
 
-export const File = ({ filePath, numberOfChanges, oldCode, newCode }) => {
+export const File = ({
+  filePath,
+  numberOfChanges,
+  oldCode,
+  newCode,
+  animTime = 10000,
+}) => {
+  const frameToStartMoving = Math.round((animTime / 1000) * 0.2)
+  const timeOfTransition = Math.round(animTime * 0.6)
+
   const [diffViewerDims, setDiffViewerDims] = useState()
+
+  const [frame, incFrame] = useReducer(
+    (s) => (s + 1) % Math.floor(animTime / 1000),
+    0
+  )
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      incFrame()
+    }, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     <Container>
-      <div className="title">
+      <div
+        className="title"
+        style={{ opacity: frame < frameToStartMoving ? 1 : 0 }}
+      >
         {filePath}
         <span className="changesText">(±{numberOfChanges})</span>
       </div>
-      <Mover>
+      <Mover
+        style={{
+          marginTop:
+            frame < frameToStartMoving
+              ? 0
+              : diffViewerDims.height < 360
+              ? 0
+              : -(diffViewerDims.height - 360),
+          transition:
+            frame < frameToStartMoving
+              ? ""
+              : `margin-top ${timeOfTransition}ms linear`,
+        }}
+      >
         <Measure
           bounds
           onResize={(contentRect) => {
-            // setDiffViewerDims(contentRect.bounds)
+            setDiffViewerDims(contentRect.bounds)
           }}
         >
           {({ measureRef }) => (
