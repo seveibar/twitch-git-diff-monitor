@@ -4,6 +4,7 @@ Let twitch viewers see the last lines of code you changed. Made on [seveibar's t
 
 ![](https://user-images.githubusercontent.com/1910070/96106915-c1494b00-0ea9-11eb-9313-1503b96dfa65.gif)
 ![](https://user-images.githubusercontent.com/1910070/96177627-262d9100-0efc-11eb-94e7-456d3c0066c9.gif)
+
 ## Features
 
 - Helps people understand what you've changed since your last commit
