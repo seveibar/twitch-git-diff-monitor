@@ -4,6 +4,11 @@ Let twitch viewers see the last lines of code you changed. Made on [seveibar's t
 
 ![](https://user-images.githubusercontent.com/1910070/96106915-c1494b00-0ea9-11eb-9313-1503b96dfa65.gif)
 
+## Features
+
+* Runs "git diff" to find changed files in your git repository
+* Displays changes by cycling through your files as a widget
+
 ## Installation
 
 ```bash
