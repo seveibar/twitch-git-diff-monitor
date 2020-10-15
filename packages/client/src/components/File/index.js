@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { styled } from "@material-ui/core"
 import colors from "../../colors"
 import Highlight from "react-highlight.js"
 import DiffViewer from "react-diff-viewer"
 import Prism from "prismjs"
+import Measure from "react-measure"
 
 const Container = styled("div")({
   color: colors.Foreground,
@@ -12,6 +13,7 @@ const Container = styled("div")({
   width: 360,
   height: 360,
   borderRadius: 4,
+  overflow: "hidden",
   padding: 16,
   "& .title": {
     fontWeight: 600,
@@ -23,6 +25,8 @@ const Container = styled("div")({
   },
 })
 
+const Mover = styled("div")({})
+
 const highlightSyntax = (str) => (
   <pre
     style={{ display: "inline" }}
@@ -33,20 +37,41 @@ const highlightSyntax = (str) => (
 )
 
 export const File = ({ filePath, numberOfChanges, oldCode, newCode }) => {
+  const [diffViewerDims, setDiffViewerDims] = useState()
   return (
     <Container>
       <div className="title">
         {filePath}
         <span className="changesText">(±{numberOfChanges})</span>
       </div>
-      <DiffViewer
-        oldValue={oldCode}
-        newValue={newCode}
-        splitView={false}
-        hideLineNumbers={true}
-        useDarkTheme
-        renderContent={highlightSyntax}
-      />
+      <Mover>
+        <Measure
+          bounds
+          onResize={(contentRect) => {
+            // setDiffViewerDims(contentRect.bounds)
+          }}
+        >
+          {({ measureRef }) => (
+            <div ref={measureRef}>
+              <DiffViewer
+                oldValue={oldCode}
+                newValue={newCode}
+                splitView={false}
+                hideLineNumbers={true}
+                disableWordDiff
+                useDarkTheme
+                codeFoldMessageRenderer={() => ""}
+                renderContent={highlightSyntax}
+                styles={{
+                  codeFold: {
+                    height: 0,
+                  },
+                }}
+              />
+            </div>
+          )}
+        </Measure>
+      </Mover>
     </Container>
   )
 }
