@@ -2,7 +2,7 @@
 
 Let twitch viewers see the last lines of code you changed.
 
-![](https://media0.giphy.com/media/CRJ295FvoeaGBR2Jsd/giphy.gif)
+![](https://user-images.githubusercontent.com/1910070/96106915-c1494b00-0ea9-11eb-9313-1503b96dfa65.gif)
 
 ## Installation
 
