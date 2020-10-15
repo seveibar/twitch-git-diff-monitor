@@ -28,3 +28,9 @@ In OBS, add a browser window to http://localhost:4555
 ## Open in a windowless Chrome
 
 If you want to run it in a chrome window without tabs instead of in OBS, use `google-chrome --app=http://address.com`
+
+# Users!
+
+Do you use this? Edit this README and submit a PR to add your stream!
+
+- [seveibar](https://twitch.tv/seveibar)
