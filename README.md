@@ -3,11 +3,13 @@
 Let twitch viewers see the last lines of code you changed. Made on [seveibar's twitch stream](https://twitch.tv/seveibar)
 
 ![](https://user-images.githubusercontent.com/1910070/96106915-c1494b00-0ea9-11eb-9313-1503b96dfa65.gif)
-
+![](https://user-images.githubusercontent.com/1910070/96177627-262d9100-0efc-11eb-94e7-456d3c0066c9.gif)
 ## Features
 
+- Helps people understand what you've changed since your last commit
 - Runs "git diff" to find changed files in your git repository
 - Displays changes by cycling through your files as a widget
+- Easy to install & run, Integrates into OBS easily
 
 ## Installation
 
