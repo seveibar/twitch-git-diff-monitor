@@ -6,8 +6,8 @@ Let twitch viewers see the last lines of code you changed. Made on [seveibar's t
 
 ## Features
 
-* Runs "git diff" to find changed files in your git repository
-* Displays changes by cycling through your files as a widget
+- Runs "git diff" to find changed files in your git repository
+- Displays changes by cycling through your files as a widget
 
 ## Installation
 
