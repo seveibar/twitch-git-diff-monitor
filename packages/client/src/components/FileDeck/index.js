@@ -32,7 +32,7 @@ const FileContainer = styled("div")({
 
 export const FileDeck = ({ files }) => {
   const [visibleFileIndex, incVisibleFile] = useReducer(
-    (idx) => (idx + 1) % (files.length + 1),
+    (idx) => (idx + 1) % files.length,
     0
   )
 

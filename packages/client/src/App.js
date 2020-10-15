@@ -10,21 +10,6 @@ import FileDeck from "./components/FileDeck"
 const Container = styled("div")({
   overflow: "hidden",
 })
-const Change = styled("div")(({ op }) => ({
-  color: "#fff",
-  ...(op === "add"
-    ? {
-        backgroundColor: colors.green[500],
-      }
-    : op === "del"
-    ? {
-        backgroundColor: colors.red[600],
-      }
-    : {
-        color: colors.grey[200],
-        backgroundColor: colors.grey[500],
-      }),
-}))
 
 const App = () => {
   const [files, setFiles] = useState(null)
