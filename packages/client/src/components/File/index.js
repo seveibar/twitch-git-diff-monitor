@@ -66,7 +66,14 @@ export const File = ({
     <Container>
       <div
         className="title"
-        style={{ opacity: frame < frameToStartMoving ? 1 : 0 }}
+        style={{
+          opacity:
+            (diffViewerDims || {}).height < 360
+              ? 1
+              : frame < frameToStartMoving
+              ? 1
+              : 0,
+        }}
       >
         {filePath}
         <span className="changesText">(±{numberOfChanges})</span>
