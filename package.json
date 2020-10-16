@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "concurrently 'cd packages/client && yarn start' 'cd packages/server && yarn start'",
-    "test": "prettier -c . && cd packages/client && eslint",
+    "test": "prettier -c . && cd packages/client && npx eslint",
     "build": "cd packages/client && yarn install && yarn build",
     "devinstall": "cd packages/server && yarn install && cd ../client && yarn install && yarn build"
   },
