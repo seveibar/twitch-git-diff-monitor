@@ -5,10 +5,11 @@ import classnames from "classnames"
 import Dots from "../Dots"
 
 const Container = styled("div")({
-  margin: 32,
+  margin: 128,
+  marginTop: 64,
   position: "relative",
-  width: 500,
-  height: 500,
+  width: 640,
+  height: 640,
 })
 
 const FileContainer = styled("div")({
@@ -31,6 +32,8 @@ const FileContainer = styled("div")({
   },
 })
 
+const timePerFile = 15000
+
 export const FileDeck = ({ files }) => {
   const [visibleFileIndex, incVisibleFile] = useReducer(
     (idx) => (idx + 1) % files.length,
@@ -40,7 +43,7 @@ export const FileDeck = ({ files }) => {
   useEffect(() => {
     let interval = setInterval(() => {
       incVisibleFile()
-    }, 15000)
+    }, timePerFile)
     return () => {
       clearInterval(interval)
     }
@@ -57,7 +60,7 @@ export const FileDeck = ({ files }) => {
             exiting: visibleFileIndex === i - 1,
           })}
         >
-          <File {...file} animTime={15000} />
+          <File {...file} animTime={timePerFile} />
         </FileContainer>
       ))}
       <Dots fileIndex={visibleFileIndex} totalFiles={files.length} />
