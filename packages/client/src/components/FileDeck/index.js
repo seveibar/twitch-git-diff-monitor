@@ -36,7 +36,7 @@ const FileContainer = styled("div")({
 let minTimePerFile = 15000
 const getParams = qs.parse(window.location.search.substr(1))
 if (getParams.file_show_time) {
-  minTimePerFile = parseInt(getParams.file_show_time) * 1000
+  minTimePerFile = parseInt(getParams.file_show_time) * 1000 || 15000
 }
 
 export const FileDeck = ({ files }) => {
@@ -49,6 +49,8 @@ export const FileDeck = ({ files }) => {
     files && files[visibleFileIndex]
       ? minTimePerFile + files[visibleFileIndex].numberOfChanges * 400
       : 10000
+
+  console.log({ timeToSpendOnTheVisibleFile })
 
   useEffect(() => {
     let interval = setTimeout(() => {

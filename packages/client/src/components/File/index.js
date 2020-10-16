@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react"
+import React, { useState, useEffect } from "react"
 import { styled } from "@material-ui/core"
 import colors from "../../colors"
 import DiffViewer from "react-diff-viewer"
@@ -93,10 +93,10 @@ export const File = ({
             : diffViewerDims.height < 360
             ? 0
             : -(diffViewerDims.height - 360),
-          transition: isOnlyFile
-            ? ""
-            : !isAnimating
-            ? `margin-top 10000ms linear`
+          transition: !isAnimating
+            ? isOnlyFile
+              ? ""
+              : `margin-top 10000ms linear`
             : `margin-top ${animationDuration}ms linear`,
         }}
       >
