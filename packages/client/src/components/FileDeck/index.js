@@ -3,6 +3,7 @@ import File from "../File"
 import { styled } from "@material-ui/core"
 import classnames from "classnames"
 import Dots from "../Dots"
+import qs from "qs"
 
 const Container = styled("div")({
   margin: 128,
@@ -32,7 +33,11 @@ const FileContainer = styled("div")({
   },
 })
 
-const timePerFile = 15000
+let timePerFile = 15000
+const getParams = qs.parse(window.location.search.substr(1))
+if (getParams.file_show_time) {
+  timePerFile = parseInt(getParams.file_show_time) * 1000
+}
 
 export const FileDeck = ({ files }) => {
   const [visibleFileIndex, incVisibleFile] = useReducer(
