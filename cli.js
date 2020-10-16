@@ -20,3 +20,7 @@ console.log(
   "Running twitch-git-diff-monitor on port 4555\n\nIn OBS, add a browser window to http://localhost:4555"
 )
 service.listen(4555)
+
+console.log(
+  'You can also run it as a chrome app using "google-chrome --app=http://localhost:4555"'
+)

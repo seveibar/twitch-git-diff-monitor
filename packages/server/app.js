@@ -6,6 +6,8 @@ var parse = require("parse-diff")
 
 const repoPath = process.cwd()
 
+const ignoreFilesEndingWith = ["yarn.lock", "package-lock.json"]
+
 module.exports = async (req, res) => {
   const gitDiffOutput = execSync(`git diff`, {
     cwd: repoPath,
@@ -16,6 +18,13 @@ module.exports = async (req, res) => {
   const responseArray = []
 
   for (const fileDiff of fileDiffs) {
+    if (
+      ignoreFilesEndingWith.some((ending) =>
+        fileDiff.to.toLowerCase().endsWith(ending)
+      )
+    ) {
+      continue
+    }
     responseArray.push({
       filePath: fileDiff.to,
       numberOfChanges: fileDiff.additions + fileDiff.deletions,

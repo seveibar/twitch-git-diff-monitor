@@ -2,6 +2,7 @@ import React, { useEffect, useReducer } from "react"
 import File from "../File"
 import { styled } from "@material-ui/core"
 import classnames from "classnames"
+import Dots from "../Dots"
 
 const Container = styled("div")({
   margin: 32,
@@ -39,7 +40,7 @@ export const FileDeck = ({ files }) => {
   useEffect(() => {
     let interval = setInterval(() => {
       incVisibleFile()
-    }, 25000)
+    }, 15000)
     return () => {
       clearInterval(interval)
     }
@@ -56,9 +57,10 @@ export const FileDeck = ({ files }) => {
             exiting: visibleFileIndex === i - 1,
           })}
         >
-          <File {...file} animTime={25000} />
+          <File {...file} animTime={15000} />
         </FileContainer>
       ))}
+      <Dots fileIndex={visibleFileIndex} totalFiles={files.length} />
     </Container>
   )
 }

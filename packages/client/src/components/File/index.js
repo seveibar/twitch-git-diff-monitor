@@ -111,7 +111,7 @@ export const File = ({
                 renderContent={highlightSyntax}
                 styles={{
                   codeFold: {
-                    height: 0,
+                    height: 5,
                   },
                 }}
               />
