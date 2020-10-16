@@ -25,6 +25,8 @@ Running twitch-git-diff-monitor on port 4555
 In OBS, add a browser window to http://localhost:4555
 ```
 
+![](https://user-images.githubusercontent.com/1910070/96245819-c378db80-0f75-11eb-9a10-5eb22a797679.png)
+
 ## Options
 
 In OBS, you can supply query parameters to change stuff.
