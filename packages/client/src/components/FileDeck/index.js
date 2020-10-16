@@ -72,6 +72,7 @@ export const FileDeck = ({ files }) => {
           })}
         >
           <File
+            isOnlyFile={files.length === 1}
             visible={visibleFileIndex === i}
             {...file}
             animTime={timeToSpendOnTheVisibleFile}

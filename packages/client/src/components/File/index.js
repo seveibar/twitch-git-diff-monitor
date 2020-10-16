@@ -42,6 +42,7 @@ export const File = ({
   numberOfChanges,
   oldCode,
   newCode,
+  isOnlyFile,
   animTime = 20000,
 }) => {
   const startMovingAfter = 5000
@@ -92,7 +93,9 @@ export const File = ({
             : diffViewerDims.height < 360
             ? 0
             : -(diffViewerDims.height - 360),
-          transition: !isAnimating
+          transition: isOnlyFile
+            ? ""
+            : !isAnimating
             ? `margin-top 10000ms linear`
             : `margin-top ${animationDuration}ms linear`,
         }}
