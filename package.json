@@ -12,7 +12,7 @@
     "storybook": "cd packages/client && yarn storybook",
     "test": "prettier -c .",
     "build": "cd packages/client && yarn install && yarn build",
-    "postinstall": "cd packages/server && yarn install && cd ../client && yarn install && yarn build"
+    "postinstall": "cd packages/server && yarn install && cd ../client && yarn install"
   },
   "dependencies": {
     "concurrently": "^5.3.0",
