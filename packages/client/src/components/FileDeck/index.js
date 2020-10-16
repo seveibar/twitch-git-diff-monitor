@@ -33,10 +33,10 @@ const FileContainer = styled("div")({
   },
 })
 
-let timePerFile = 15000
+let minTimePerFile = 15000
 const getParams = qs.parse(window.location.search.substr(1))
 if (getParams.file_show_time) {
-  timePerFile = parseInt(getParams.file_show_time) * 1000
+  minTimePerFile = parseInt(getParams.file_show_time) * 1000
 }
 
 export const FileDeck = ({ files }) => {
@@ -45,14 +45,18 @@ export const FileDeck = ({ files }) => {
     0
   )
 
+  const timeToSpendOnTheVisibleFile =
+    minTimePerFile + files[visibleFileIndex].numberOfChanges * 400
+
   useEffect(() => {
-    let interval = setInterval(() => {
+    let interval = setTimeout(() => {
       incVisibleFile()
-    }, timePerFile)
+    }, timeToSpendOnTheVisibleFile)
     return () => {
-      clearInterval(interval)
+      clearTimeout(interval)
     }
-  }, [])
+    // eslint-disable-next-line
+  }, [visibleFileIndex])
 
   return (
     <Container>
@@ -65,7 +69,11 @@ export const FileDeck = ({ files }) => {
             exiting: visibleFileIndex === i - 1,
           })}
         >
-          <File {...file} animTime={timePerFile} />
+          <File
+            visible={visibleFileIndex === i}
+            {...file}
+            animTime={timeToSpendOnTheVisibleFile}
+          />
         </FileContainer>
       ))}
       <Dots fileIndex={visibleFileIndex} totalFiles={files.length} />

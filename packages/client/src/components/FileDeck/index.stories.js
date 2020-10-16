@@ -2,6 +2,8 @@ import React from "react"
 import FileDeck from "./"
 import { oldCode, newCode } from "../File/code-example"
 import colors from "../../colors"
+import longStringOfCode from "../File/long-code"
+import range from "lodash/range"
 
 export default {
   title: "FileDeck",
@@ -41,5 +43,24 @@ export const DarkBg = () => {
         ]}
       />
     </div>
+  )
+}
+
+export const ShortAndLongFile = () => {
+  const longLongCode = range(10)
+    .map(() => longStringOfCode)
+    .join("\n")
+  return (
+    <FileDeck
+      files={[
+        { filePath: "file1.js", numberOfChanges: 25, oldCode, newCode },
+        {
+          filePath: "file2.js",
+          numberOfChanges: longLongCode.split("\n").length,
+          oldCode: "",
+          newCode: longLongCode,
+        },
+      ]}
+    />
   )
 }

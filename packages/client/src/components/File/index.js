@@ -37,30 +37,41 @@ const highlightSyntax = (str) => (
 )
 
 export const File = ({
+  visible,
   filePath,
   numberOfChanges,
   oldCode,
   newCode,
-  animTime = 10000,
+  animTime = 20000,
 }) => {
-  const frameToStartMoving = Math.round((animTime / 1000) * 0.2)
-  const timeOfTransition = Math.round(animTime * 0.6)
+  const startMovingAfter = 5000
+  const animationDuration = animTime - 10000
+
+  const [isAnimating, setIsAnimating] = useState(false)
 
   const [diffViewerDims, setDiffViewerDims] = useState()
 
-  const [frame, incFrame] = useReducer(
-    (s) => (s + 1) % Math.floor(animTime / 1000),
-    0
-  )
-
   useEffect(() => {
-    let interval = setInterval(() => {
-      incFrame()
-    }, 1000)
-    return () => {
-      clearInterval(interval)
+    if (!visible) return
+    let startMovingAfterTimeout, animEndTimeout
+    function createTimeouts() {
+      startMovingAfterTimeout = setTimeout(() => {
+        setIsAnimating(true)
+      }, startMovingAfter)
+      animEndTimeout = setTimeout(() => {
+        setIsAnimating(false)
+        createTimeouts()
+      }, animTime)
     }
-  }, [])
+
+    createTimeouts()
+
+    return () => {
+      clearTimeout(startMovingAfterTimeout)
+      clearTimeout(animEndTimeout)
+    }
+    // eslint-disable-next-line
+  }, [visible])
 
   return (
     <Container>
@@ -68,11 +79,7 @@ export const File = ({
         className="title"
         style={{
           opacity:
-            (diffViewerDims || {}).height < 360
-              ? 1
-              : frame < frameToStartMoving
-              ? 1
-              : 0,
+            (diffViewerDims || {}).height < 360 ? 1 : !isAnimating ? 1 : 0,
         }}
       >
         {filePath}
@@ -80,16 +87,14 @@ export const File = ({
       </div>
       <Mover
         style={{
-          marginTop:
-            frame < frameToStartMoving
-              ? 0
-              : diffViewerDims.height < 360
-              ? 0
-              : -(diffViewerDims.height - 360),
-          transition:
-            frame < frameToStartMoving
-              ? ""
-              : `margin-top ${timeOfTransition}ms linear`,
+          marginTop: !isAnimating
+            ? 0
+            : diffViewerDims.height < 360
+            ? 0
+            : -(diffViewerDims.height - 360),
+          transition: !isAnimating
+            ? `margin-top 10000ms linear`
+            : `margin-top ${animationDuration}ms linear`,
         }}
       >
         <Measure
