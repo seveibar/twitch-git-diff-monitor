@@ -46,7 +46,9 @@ export const FileDeck = ({ files }) => {
   )
 
   const timeToSpendOnTheVisibleFile =
-    minTimePerFile + files[visibleFileIndex].numberOfChanges * 400
+    files && files[visibleFileIndex]
+      ? minTimePerFile + files[visibleFileIndex].numberOfChanges * 400
+      : 10000
 
   useEffect(() => {
     let interval = setTimeout(() => {

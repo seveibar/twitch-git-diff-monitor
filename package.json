@@ -8,15 +8,17 @@
     "twitch-git-diff-monitor": "./cli.js"
   },
   "scripts": {
-    "start": "concurrently 'cd packages/client && yarn start' 'cd packages/server && yarn start'",
+    "start": "concurrently 'cd packages/client && yarn start' 'micro-dev --port 3001 packages/server/app.js'",
+    "storybook": "cd packages/client && yarn storybook",
     "test": "prettier -c .",
     "build": "cd packages/client && yarn install && yarn build",
-    "devinstall": "cd packages/server && yarn install && cd ../client && yarn install && yarn build"
+    "postinstall": "cd packages/server && yarn install && cd ../client && yarn install && yarn build"
   },
   "dependencies": {
     "concurrently": "^5.3.0",
     "lodash": "^4.17.20",
     "micro": "^9.3.4",
+    "micro-dev": "^3.0.0",
     "parse-diff": "^0.7.1",
     "prompt-confirm": "^2.0.4",
     "serve-handler": "^6.1.3",

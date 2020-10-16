@@ -40,3 +40,7 @@ If you want to run it in a chrome window without tabs instead of in OBS, use `go
 Do you use this? Edit this README and submit a PR to add your stream!
 
 - [seveibar](https://twitch.tv/seveibar)
+
+# Contributing
+
+You can run the twitch-git-diff-monitor for itself, by running `yarn start` in the root directory.
